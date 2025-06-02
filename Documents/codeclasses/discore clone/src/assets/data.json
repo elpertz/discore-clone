@@ -1,0 +1,369 @@
+{
+  "discord-home": {
+    "label": "Discord Home",
+    "categories": [
+      {
+        "id": 1,
+        "label": "",
+        "channels": [
+          {
+            "id": 1,
+            "label": "welcome",
+            "icon": "Book",
+            "description": "Welcome to Discord! Start your journey here."
+          },
+          {
+            "id": 2,
+            "label": "announcements",
+            "icon": "Speakerphone",
+            "unread": true,
+            "description": "Important Discord updates and news"
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "label": "General",
+        "channels": [
+          {
+            "id": 3,
+            "label": "general",
+            "description": "General conversations and community chat"
+          },
+          {
+            "id": 4,
+            "label": "help",
+            "description": "Need help? Ask questions here!"
+          },
+          {
+            "id": 5,
+            "label": "random",
+            "unread": true,
+            "description": "Random discussions and fun conversations"
+          }
+        ]
+      }
+    ]
+  },
+  "tailwind-css": {
+    "label": "Tailwind CSS",
+    "categories": [
+      {
+        "id": 1,
+        "label": "",
+        "channels": [
+          {
+            "id": 1,
+            "label": "welcome",
+            "icon": "Book",
+            "description": "Welcome to the Tailwind CSS community! Get started with our utility-first CSS framework."
+          },
+          {
+            "id": 2,
+            "label": "announcements",
+            "icon": "Speakerphone",
+            "unread": true,
+            "description": "Stay updated with the latest Tailwind CSS news and updates"
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "label": "Tailwind CSS",
+        "channels": [
+          {
+            "id": 3,
+            "label": "general",
+            "description": "General discussions about Tailwind CSS and web development"
+          },
+          {
+            "id": 4,
+            "label": "plugins",
+            "unread": true,
+            "description": "Share and discover Tailwind CSS plugins"
+          },
+          { "id": 5, "label": "help" },
+          {
+            "id": 6,
+            "label": "internals",
+            "unread": true,
+            "description": "Deep dive into Tailwind CSS internals and architecture"
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "label": "Tailwind Labs",
+        "channels": [
+          {
+            "id": 7,
+            "label": "tailwind-ui",
+            "unread": true,
+            "description": "Official Tailwind UI components and templates"
+          },
+          { "id": 8, "label": "headless-ui" },
+          { "id": 9, "label": "refactoring-ui" },
+          {
+            "id": 10,
+            "label": "heroicons",
+            "unread": true,
+            "description": "Beautiful hand-crafted SVG icons by the makers of Tailwind CSS"
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "label": "Off topic",
+        "channels": [
+          { "id": 11, "label": "design", "description": "Discuss design principles and trends" },
+          { "id": 12, "label": "development", "unread": true },
+          { "id": 13, "label": "random", "description": "Casual conversations and fun discussions" }
+        ]
+      },
+      {
+        "id": 5,
+        "label": "Community",
+        "channels": [
+          {
+            "id": 14,
+            "label": "jobs",
+            "unread": true,
+            "description": "Find Tailwind CSS related job opportunities"
+          },
+          { "id": 15, "label": "showcase", "description": "Show off your Tailwind CSS projects" },
+          { "id": 16, "label": "bots", "unread": true }
+        ]
+      }
+    ]
+  },
+  "champion-league": {
+    "label": "Champion League",
+    "categories": [
+      {
+        "id": 1,
+        "label": "",
+        "channels": [
+          {
+            "id": 1,
+            "label": "welcome",
+            "icon": "Book",
+            "description": "Welcome to the Champions League community! Join us for the ultimate European football experience."
+          },
+          {
+            "id": 2,
+            "label": "announcements",
+            "icon": "Speakerphone",
+            "unread": true,
+            "description": "Important updates and news about the Champions League"
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "label": "Match Center",
+        "channels": [
+          {
+            "id": 3,
+            "label": "live-matches",
+            "unread": true,
+            "description": "Live match discussions and updates"
+          },
+          {
+            "id": 4,
+            "label": "match-schedule",
+            "description": "Upcoming Champions League fixtures and schedules"
+          },
+          { "id": 5, "label": "results", "unread": true },
+          {
+            "id": 6,
+            "label": "standings",
+            "description": "Current group standings and knockout stage brackets"
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "label": "Teams",
+        "channels": [
+          {
+            "id": 7,
+            "label": "team-news",
+            "description": "Latest news and updates from all participating teams"
+          },
+          { "id": 8, "label": "transfers", "unread": true },
+          { "id": 9, "label": "injuries", "description": "Track player injuries and availability" },
+          {
+            "id": 10,
+            "label": "tactics",
+            "unread": true,
+            "description": "Discuss team strategies and formations"
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "label": "Community",
+        "channels": [
+          {
+            "id": 11,
+            "label": "match-predictions",
+            "unread": true,
+            "description": "Share your predictions for upcoming matches"
+          },
+          { "id": 12, "label": "fantasy-league" },
+          { "id": 13, "label": "memes", "unread": true, "description": "Football memes and humor" }
+        ]
+      },
+      {
+        "id": 5,
+        "label": "Media",
+        "channels": [
+          {
+            "id": 14,
+            "label": "highlights",
+            "description": "Match highlights and memorable moments"
+          },
+          { "id": 15, "label": "interviews", "unread": true },
+          {
+            "id": 16,
+            "label": "press-conferences",
+            "description": "Post-match press conferences and player interviews"
+          }
+        ]
+      }
+    ]
+  },
+  "art-design": {
+    "label": "Art & Design",
+    "categories": [
+      {
+        "id": 1,
+        "label": "",
+        "channels": [
+          {
+            "id": 1,
+            "label": "welcome",
+            "icon": "Book",
+            "description": "Welcome to the Art & Design community! A space for artists and designers to connect and share their work."
+          },
+          {
+            "id": 2,
+            "label": "announcements",
+            "icon": "Speakerphone",
+            "unread": true,
+            "description": "Community announcements and important updates"
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "label": "Digital Art",
+        "channels": [
+          {
+            "id": 3,
+            "label": "digital-painting",
+            "unread": true,
+            "description": "Share your digital paintings and techniques"
+          },
+          {
+            "id": 4,
+            "label": "illustration",
+            "description": "Digital and traditional illustration discussions"
+          },
+          { "id": 5, "label": "character-design", "unread": true },
+          {
+            "id": 6,
+            "label": "concept-art",
+            "description": "Concept art for games, movies, and other media"
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "label": "Traditional Art",
+        "channels": [
+          {
+            "id": 7,
+            "label": "sketching",
+            "description": "Share your sketches and drawing techniques"
+          },
+          {
+            "id": 8,
+            "label": "painting",
+            "unread": true,
+            "description": "Traditional painting techniques and materials"
+          },
+          { "id": 9, "label": "drawing" },
+          {
+            "id": 10,
+            "label": "sculpture",
+            "unread": true,
+            "description": "Sculpture and 3D art discussions"
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "label": "Design",
+        "channels": [
+          {
+            "id": 11,
+            "label": "graphic-design",
+            "unread": true,
+            "description": "Graphic design principles and projects"
+          },
+          {
+            "id": 12,
+            "label": "ui-ux",
+            "description": "User interface and experience design discussions"
+          },
+          { "id": 13, "label": "typography", "unread": true },
+          { "id": 14, "label": "branding", "description": "Brand identity and logo design" }
+        ]
+      },
+      {
+        "id": 5,
+        "label": "Resources",
+        "channels": [
+          {
+            "id": 15,
+            "label": "tutorials",
+            "description": "Share and find art and design tutorials"
+          },
+          { "id": 16, "label": "references", "unread": true },
+          {
+            "id": 17,
+            "label": "tools",
+            "description": "Discuss art and design tools and software"
+          },
+          { "id": 18, "label": "software", "unread": true }
+        ]
+      },
+      {
+        "id": 6,
+        "label": "Community",
+        "channels": [
+          {
+            "id": 19,
+            "label": "art-share",
+            "unread": true,
+            "description": "Share your artwork with the community"
+          },
+          { "id": 20, "label": "critique", "description": "Get feedback on your artwork" },
+          { "id": 21, "label": "collaboration", "unread": true },
+          { "id": 22, "label": "events" }
+        ]
+      },
+      {
+        "id": 7,
+        "label": "Inspiration",
+        "channels": [
+          { "id": 23, "label": "galleries" },
+          { "id": 24, "label": "artists", "unread": true },
+          { "id": 25, "label": "trends" },
+          { "id": 26, "label": "exhibitions", "unread": true }
+        ]
+      }
+    ]
+  }
+}
