@@ -105,6 +105,13 @@ public/
 
 ## 🆕 Recent Updates
 
+### **v2.1.1 - Routing Fix**
+
+- ✅ **URL Conflict Resolution**: Fixed home vs server routing ambiguity
+- ✅ **Clean Home URLs**: Home channels now use `/home/:channelName` pattern
+- ✅ **Route Order**: Prioritized specific routes to prevent conflicts
+- ✅ **Navigation Consistency**: Seamless switching between home and server contexts
+
 ### **v2.1.0 - Messaging System Overhaul**
 
 - ✅ **Discord-Style Message Grouping**: Smart consecutive message detection
@@ -133,8 +140,8 @@ public/
 
 ### Home Routes
 
-- `/` - Home dashboard
-- `/:channelName` - Home channel (e.g., `/general`)
+- `/` - Home dashboard (Discord Home)
+- `/home/:channelName` - Home channel (e.g., `/home/welcome`, `/home/announcements`)
 
 ### Server Routes
 
@@ -145,6 +152,22 @@ public/
 
 - Primary: `/tailwind-css/general`
 - Duplicate: `/tailwind-css-2/general`
+
+### URL Examples
+
+```
+Home Context:
+├── /                          # Home dashboard
+├── /home/welcome             # Welcome channel
+├── /home/announcements       # Announcements channel
+└── /home/general            # General channel
+
+Server Context:
+├── /tailwind-css             # Tailwind CSS server
+├── /tailwind-css/general     # General channel in Tailwind server
+├── /art-design/character-design  # Character design channel
+└── /champion-league/results  # Results channel in Champion League
+```
 
 ## 🎨 Customization
 

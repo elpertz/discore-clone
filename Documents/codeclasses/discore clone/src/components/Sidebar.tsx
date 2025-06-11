@@ -69,7 +69,7 @@ export function Sidebar({ context, serverSlug }: SidebarProps) {
    */
   const getChannelState = (channel: any) => {
     const channelPath = channel.label.toLowerCase().replace(/\s+/g, "-");
-    const to = context === "home" ? `/${channelPath}` : `/${serverSlug}/${channelPath}`;
+    const to = context === "home" ? `/home/${channelPath}` : `/${serverSlug}/${channelPath}`;
     const isActive = location.pathname === to;
     return isActive ? "active" : channel.unread ? "inactiveUnread" : "inactiveRead";
   };
@@ -162,7 +162,7 @@ function ChannelLink({ channel, context, serverSlug }: ChannelLinkProps) {
 
   // 🎯 LÓGICA INTELIGENTE: Construir URL según contexto
   const channelPath = channel.label.toLowerCase().replace(/\s+/g, "-");
-  const to = context === "home" ? `/${channelPath}` : `/${serverSlug}/${channelPath}`;
+  const to = context === "home" ? `/home/${channelPath}` : `/${serverSlug}/${channelPath}`;
   const isActive = location.pathname === to;
 
   const state = isActive ? "active" : channel.unread ? "inactiveUnread" : "inactiveRead";

@@ -14,14 +14,14 @@ function App() {
 
       {/* Routes  */}
       <Routes>
+        {/* Route home */}
+        <Route path="/" element={<Home />} />
+        {/* Route home with channel selected */}
+        <Route path="/home/:channelName" element={<Home />} />
         {/* Route with channel selected */}
         <Route path="/:serverSlug/:channelName" element={<ServerDynamic />} />
         {/* Route with server selected */}
         <Route path="/:serverSlug" element={<ServerDynamic />} />
-        {/* Route home with channel selected */}
-        <Route path="/:channelName" element={<Home />} />
-        {/* Route home */}
-        <Route path="/" element={<Home />} />
       </Routes>
     </div>
   );
