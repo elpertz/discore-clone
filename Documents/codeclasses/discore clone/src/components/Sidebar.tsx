@@ -3,11 +3,15 @@ import { Link, useLocation } from "react-router-dom";
 import { Button } from "./ui/button";
 import { ChevronDownIcon } from "lucide-react";
 import * as Icons from "./icons-d/icons";
-import data from "../assets/data.json";
+import data from "../assets/data.js";
 import { useState } from "react";
+import type { DataStructure } from "../assets/data.d";
 
-// Mapeo de uniqueSlug a dataKey para acceder a data.json
-const serverSlugMapping: Record<string, keyof typeof data> = {
+// Type assertion para que TypeScript reconozca el tipo
+const typedData = data as DataStructure;
+
+// Mapeo de uniqueSlug a dataKey para acceder a data.js
+const serverSlugMapping: Record<string, keyof DataStructure> = {
   "tailwind-css": "tailwind-css",
   "tailwind-css-2": "tailwind-css", // ← Duplicado usa mismos datos
   "champion-league": "champion-league",
@@ -15,18 +19,11 @@ const serverSlugMapping: Record<string, keyof typeof data> = {
   "art-design": "art-design",
 };
 
-const reverseServerMapping: Record<keyof typeof data, string> = {
-  "discord-home": "home",
-  "tailwind-css": "tailwind-css",
-  "champion-league": "champion-league",
-  "art-design": "art-design",
-};
-
 /**
  * Notes: Obtiene el dataKey del servidor basado en el uniqueSlug
  * Goal: Mapear uniqueSlug a nombres semánticos para acceder a los datos correctos
  */
-function getServerDataKey(uniqueSlug?: string): keyof typeof data {
+function getServerDataKey(uniqueSlug?: string): keyof DataStructure {
   return uniqueSlug ? serverSlugMapping[uniqueSlug] || "tailwind-css" : "tailwind-css";
 }
 
@@ -42,7 +39,7 @@ export function Sidebar({ context, serverSlug }: SidebarProps) {
 
   // Obtener los datos del servidor correcto
   const serverKey = context === "home" ? "discord-home" : getServerDataKey(serverSlug);
-  const serverData = data[serverKey];
+  const serverData = typedData[serverKey];
 
   /**
    * Notes: Función para alternar el estado de una categoría (abierta/cerrada)
@@ -97,7 +94,7 @@ export function Sidebar({ context, serverSlug }: SidebarProps) {
 
       {/* Lista de canales usando los datos del servidor correcto */}
       <div className="flex flex-col gap-1 overflow-y-scroll">
-        {serverData.categories.map((categorie) => (
+        {serverData.categories.map((categorie: any) => (
           <div className="flex flex-col gap-1 pt-3" key={categorie.id}>
             {categorie.label && (
               <Button
@@ -118,14 +115,14 @@ export function Sidebar({ context, serverSlug }: SidebarProps) {
             {/* Mostrar canales: todos si está abierta, solo unread si está cerrada */}
             <div className="space-y-0.5 px-1">
               {categorie.channels
-                .filter((channel) => {
+                .filter((channel: any) => {
                   // Si la categoría está abierta, mostrar todos los canales
                   if (!isCategoryClosed(categorie.id)) return true;
 
                   // Si está cerrada, solo mostrar los canales unread
                   return getChannelState(channel) === "inactiveUnread";
                 })
-                .map((channel) => (
+                .map((channel: any) => (
                   <ChannelLink
                     key={channel.id}
                     channel={channel}

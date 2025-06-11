@@ -1,19 +1,43 @@
-import SendMessage from "./ui/messagesend";
+import { MessageWithAvatar, MessageSimple } from "./ui/messagesend";
 import { Button } from "./ui/button";
 import * as Icons from "./icons-d/icons";
 import { Input } from "./ui/input";
+
+interface Message {
+  id: number;
+  user: string;
+  avatarUrl: string;
+  date: string;
+  text: string;
+}
 
 interface ChannelViewProps {
   channelName: string;
   channelDescription?: string;
   serverSlug?: string;
+  messages?: Message[];
 }
 
 export default function ChannelView({
   channelName,
   channelDescription,
-  serverSlug,
+  serverSlug, // TODO: Will be used for server-specific features (member list, permissions, etc.)
+  messages = [],
 }: ChannelViewProps) {
+  // Función para determinar si mostrar avatar (Discord logic)
+  const shouldShowAvatar = (currentMessage: Message, previousMessage?: Message): boolean => {
+    if (!previousMessage) return true; // Primer mensaje siempre muestra avatar
+
+    // Mostrar avatar si es diferente usuario
+    if (currentMessage.user !== previousMessage.user) return true;
+
+    // TODO: Agregar lógica de tiempo (si pasaron más de 7 minutos)
+    // const timeDiff = new Date(currentMessage.date).getTime() - new Date(previousMessage.date).getTime();
+    // if (timeDiff > 7 * 60 * 1000) return true; // 7 minutos
+
+    return false;
+  };
+
   return (
     <>
       <div className="flex h-12 items-center justify-between gap-2 border-b border-gray-400/5 px-3 font-semibold shadow-sm transition-colors">
@@ -59,25 +83,49 @@ export default function ChannelView({
           </Button>
         </div>
       </div>
-      <div className="flex-1 space-y-2 overflow-y-scroll py-3">
-        {[...Array(32)].map((_, index) => {
-          const isProfile = index % 3 === 0;
-          return (
-            <SendMessage
-              key={index}
-              variant={isProfile ? "profile" : "simple"}
-              avatar={isProfile ? "/images/pertz.png" : undefined}
-              name={isProfile ? "Pertz" : undefined}
-              date={isProfile ? "01/15/2025" : undefined}
-              time={`${1 + index}:${12 + index} pm`}
-              message={
-                isProfile
-                  ? "Hey @Leon Strydom, I've been making some updates to my personal brand design system (mostly typography and colors) and will release an update soon."
-                  : `Message number ${index + 1} with simple variant`
-              }
-            />
-          );
-        })}
+
+      {/* Contenedor principal con scroll vertical */}
+      <div className="flex-1 overflow-y-auto">
+        <div className="pb-4">
+          {/* Verifica si hay mensajes para mostrar */}
+          {messages.length > 0 ? (
+            messages.map((message, index) => {
+              // Obtiene el mensaje anterior para comparar
+              const previousMessage = index > 0 ? messages[index - 1] : undefined;
+              // Determina si debe mostrar el avatar basado en la lógica de Discord
+              const showAvatar = shouldShowAvatar(message, previousMessage);
+
+              // Renderiza mensaje con avatar o sin él según la condición
+              return showAvatar ? (
+                <MessageWithAvatar
+                  key={message.id}
+                  id={message.id}
+                  user={message.user}
+                  avatarUrl={message.avatarUrl}
+                  date={message.date}
+                  text={message.text}
+                  // Genera timestamp dinámico basado en el índice
+                  timestamp={`${12 + (index % 12)}:${String(index % 60).padStart(2, "0")} PM`}
+                />
+              ) : (
+                <MessageSimple
+                  key={message.id}
+                  text={message.text}
+                  timestamp={`${12 + (index % 12)}:${String(index % 60).padStart(2, "0")} PM`}
+                />
+              );
+            })
+          ) : (
+            /* Mensaje de bienvenida cuando no hay mensajes */
+            <div className="flex h-full items-center justify-center text-gray-400">
+              <div className="text-center">
+                <Icons.Hashtag className="mx-auto mb-4 size-16 text-gray-600" />
+                <h3 className="mb-2 text-xl font-semibold">Welcome to #{channelName}</h3>
+                <p className="text-gray-500">This is the start of the #{channelName} channel.</p>
+              </div>
+            </div>
+          )}
+        </div>
       </div>
     </>
   );

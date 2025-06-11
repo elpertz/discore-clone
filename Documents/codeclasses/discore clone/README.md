@@ -1,6 +1,6 @@
 # 🎮 Discord Clone
 
-A modern Discord clone built with React, TypeScript, and Tailwind CSS featuring clean URLs, responsive design, and intuitive navigation.
+A modern Discord clone built with React, TypeScript, and Tailwind CSS featuring clean URLs, responsive design, intuitive navigation, and a realistic messaging system with local avatars.
 
 ![Discord Clone](https://img.shields.io/badge/Status-Active-brightgreen)
 ![React](https://img.shields.io/badge/React-18+-blue)
@@ -14,13 +14,22 @@ A modern Discord clone built with React, TypeScript, and Tailwind CSS featuring 
 - **Clean URLs**: `/server/channel` instead of `/server/123/channel`
 - **Smart Context**: Automatic switching between home and server modes
 - **Unique Slugs**: Handles duplicate server names elegantly (`server-2`)
+- **Active State Management**: Visual feedback for current location
+
+### 💬 **Realistic Messaging System**
+
+- **Discord-Style Messages**: Smart message grouping (consecutive same-user messages)
+- **Local Avatar System**: 12 unique avatars stored locally (`/public/avatars/Avatar/`)
+- **MessageWithAvatar**: Full messages with user info and timestamps
+- **MessageSimple**: Grouped messages without repetitive user info
+- **Dynamic Content**: Faker.js integration for realistic message generation
 
 ### 🎯 **Channel Management**
 
 - **Dynamic Descriptions**: Contextual channel descriptions from JSON data
 - **Unread Indicators**: Visual markers for unread channels
 - **Category Toggles**: Collapsible channel categories
-- **Active States**: Clear navigation state indication
+- **Welcome Messages**: Beautiful empty state when no messages exist
 
 ### 🎨 **Modern UI/UX**
 
@@ -28,13 +37,15 @@ A modern Discord clone built with React, TypeScript, and Tailwind CSS featuring 
 - **Server Icons**: Custom server avatars and branding
 - **Dark Theme**: Discord-inspired color scheme
 - **Smooth Animations**: Polished transitions and interactions
+- **Search Integration**: Built-in search functionality
 
 ### 🔧 **Technical Excellence**
 
-- **TypeScript**: Full type safety and IntelliSense
+- **TypeScript**: Full type safety with proper interfaces and assertions
 - **React Router**: Advanced routing with dynamic parameters
-- **Component Architecture**: Reusable and maintainable components
+- **Component Architecture**: Reusable MessageWithAvatar/MessageSimple components
 - **Performance**: Optimized rendering and state management
+- **Error-Free**: Zero TypeScript compilation errors
 
 ## 🚀 Quick Start
 
@@ -73,18 +84,42 @@ pnpm preview
 src/
 ├── components/          # Reusable UI components
 │   ├── ui/             # Base UI components (Button, Input, etc.)
+│   │   ├── messagesend.tsx # MessageWithAvatar & MessageSimple components
+│   │   └── ...         # Other UI components
 │   ├── icons-d/        # Custom Discord-style icons
-│   ├── ChannelView.tsx # Main channel content area
-│   ├── ServerNav.tsx   # Server navigation sidebar
-│   └── Sidebar.tsx     # Channel sidebar with smart context
+│   ├── ChannelView.tsx # Main channel content area with message rendering
+│   ├── ServerNav.tsx   # Server navigation sidebar with home detection
+│   └── Sidebar.tsx     # Channel sidebar with smart context switching
 ├── pages/              # Page components
-│   ├── Home.tsx        # Home/DM context
-│   └── ServerDynamic.tsx # Server context handler
+│   ├── Home.tsx        # Home/DM context with discord-home server
+│   └── ServerDynamic.tsx # Server context handler with slug mapping
 ├── assets/             # Static assets and data
-│   └── data.json       # Server and channel configurations
+│   ├── data.js         # Server and channel configurations with Faker.js
+│   └── data.d.ts       # TypeScript type definitions
 ├── lib/                # Utility functions
 └── entry/              # Application entry point
+public/
+├── avatars/Avatar/     # Local avatar images (Image-60.png to Image-60-12.png)
+└── images/             # Server logos and assets
 ```
+
+## 🆕 Recent Updates
+
+### **v2.1.0 - Messaging System Overhaul**
+
+- ✅ **Discord-Style Message Grouping**: Smart consecutive message detection
+- ✅ **Local Avatar System**: 12 unique avatars, no external dependencies
+- ✅ **Component Split**: MessageWithAvatar vs MessageSimple for performance
+- ✅ **TypeScript Fixes**: Zero compilation errors, proper type assertions
+- ✅ **Faker.js Update**: Updated deprecated `userName()` to `username()`
+- ✅ **Layout Consistency**: Fixed Home vs ServerDynamic layout differences
+
+### **v2.0.0 - Clean URL Architecture**
+
+- ✅ **URL Restructure**: Removed ID-based URLs, implemented slug system
+- ✅ **Server Navigation**: Unique slug handling with duplicate resolution
+- ✅ **Context Switching**: Seamless Home ↔ Server transitions
+- ✅ **Channel Descriptions**: Dynamic descriptions from data source
 
 ## 🛠️ Tech Stack
 
