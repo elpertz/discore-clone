@@ -1,21 +1,19 @@
 import ChannelView from "@/components/ChannelView";
 import { Sidebar } from "@/components/Sidebar";
 import { useParams } from "react-router-dom";
-// Importación default simple
-import data from "../assets/data.js";
-import type { Channel, DataStructure } from "../assets/data.d";
+import data from "../assets/data.js"; // Importación default simple
+import type { Channel, DataStructure } from "../assets/data.d"; // Importación de tipos
 
 // Type assertion para que TypeScript reconozca el tipo
 const typedData = data as DataStructure;
 
-// Notes: Función para obtener la descripción de un canal en el contexto home
-// Goal: Buscar la descripción del canal en los datos del servidor por defecto (discord-home)
+// Gets channel description from discord-home server data
 function getHomeChannelDescription(channelName: string): string | undefined {
-  // Buscar en "discord-home"
+  // Search in discord-home server
   const homeServer = typedData["discord-home"];
   if (!homeServer) return undefined;
 
-  // Buscar en todas las categorías
+  // Search in all categories
   for (const category of homeServer.categories) {
     const channel: Channel | undefined = category.channels.find((ch) => ch.label === channelName);
     if (channel && channel.description) {
@@ -28,8 +26,9 @@ function getHomeChannelDescription(channelName: string): string | undefined {
 function Home() {
   const { channelName } = useParams();
   const channel = channelName || "welcome";
+  const serverName = "Discord";
 
-  // Obtener todos los mensajes del canal para el contexto home
+  // Get all messages for the channel in home context
   const homeData = typedData["discord-home"];
   let channelMessages: any[] = [];
 
@@ -49,12 +48,13 @@ function Home() {
 
   return (
     <>
-      <Sidebar context="home" />
+      <Sidebar context="home" className="hidden md:block" />
       <main className="flex min-w-0 flex-1 flex-shrink flex-col bg-gray-700 text-white">
         <ChannelView
           channelName={channel}
           channelDescription={channelDescription}
           messages={channelMessages}
+          serverName={serverName}
         />
       </main>
     </>

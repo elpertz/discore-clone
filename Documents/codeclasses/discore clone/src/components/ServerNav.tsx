@@ -3,11 +3,8 @@ import * as Icons from "./icons-d/icons";
 import { useLocation, useNavigate } from "react-router-dom";
 import React from "react";
 
-// Notes: Componente de navegación de servidores
-// Goal: Renderizar la barra lateral con los enlaces de servidores disponibles
-
-// Notes: Componente especial para el link del home que detecta rutas home vs servidor
-// Goal: Mantener activo el home cuando navegamos por sus canales
+// Server navigation component with home detection
+// Special home link component that detects home vs server routes
 function HomeServerLink({
   activeColor = "bg-brand",
   hoverColor = "hover:bg-brand",
@@ -101,9 +98,9 @@ const servers = [
   },
 ];
 
-export function ServerNav() {
+export function ServerNav({ className }: { className?: string }) {
   return (
-    <div className="space-y-2 overflow-y-scroll bg-gray-900 p-3">
+    <div className={`space-y-2 overflow-y-scroll bg-gray-900 p-3 ${className}`}>
       <HomeServerLink activeColor="bg-brand" hoverColor="hover:bg-brand">
         <Icons.Discord className="size-8" />
       </HomeServerLink>

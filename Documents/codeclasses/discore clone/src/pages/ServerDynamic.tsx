@@ -17,16 +17,24 @@ const serverSlugMapping: Record<string, keyof DataStructure> = {
 };
 
 /**
- * Notes: Obtiene el dataKey del servidor basado en el uniqueSlug
- * Goal: Mapear uniqueSlug a nombres semánticos para acceder a los datos correctos
+ * Maps uniqueSlug to dataKey for accessing server data
  */
 function getServerDataKey(uniqueSlug?: string): keyof DataStructure {
   return uniqueSlug ? serverSlugMapping[uniqueSlug] || "tailwind-css" : "tailwind-css";
 }
 
+// Converts server slug to readable display name
+function getServerName(uniqueSlug?: string): string {
+  if (!uniqueSlug) return "General";
+
+  return uniqueSlug
+    .split("-")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
+}
+
 /**
- * Notes: Obtiene la descripción de un canal específico del servidor
- * Goal: Buscar la descripción en todas las categorías del servidor
+ * Gets channel description from server data
  */
 function getChannelDescription(uniqueSlug?: string, channelName?: string): string | undefined {
   if (!channelName || !uniqueSlug) return undefined;
@@ -48,8 +56,7 @@ function getChannelDescription(uniqueSlug?: string, channelName?: string): strin
 }
 
 /**
- * Notes: Obtiene los mensajes de un canal específico del servidor
- * Goal: Buscar los mensajes en todas las categorías del servidor
+ * Gets messages for a specific channel from server data
  */
 function getChannelMessages(uniqueSlug?: string, channelName?: string): any[] {
   if (!channelName || !uniqueSlug) return [];
@@ -79,17 +86,19 @@ export default function ServerDynamic() {
   const currentChannel = channelName || "general";
   const channelDescription = getChannelDescription(serverSlug, currentChannel);
   const channelMessages = getChannelMessages(serverSlug, currentChannel);
+  const serverName = getServerName(serverSlug);
 
   return (
     <>
-      {/* Pasar contexto del servidor y agregar nuevo sidebar*/}
-      <Sidebar context="server" serverSlug={serverSlug} />
-      {/* Pasar el nombre del canal y el contexto del servidor */}
+      {/* Server sidebar with context */}
+      <Sidebar context="server" serverSlug={serverSlug} className="hidden md:block" />
+      {/* Main channel content area */}
       <main className="flex min-w-0 flex-1 flex-shrink flex-col bg-gray-700 text-white">
         <ChannelView
           channelName={currentChannel}
           channelDescription={channelDescription}
           serverSlug={serverSlug}
+          serverName={serverName}
           messages={channelMessages}
         />
       </main>

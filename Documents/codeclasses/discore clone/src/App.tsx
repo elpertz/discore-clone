@@ -10,7 +10,7 @@ function App() {
   console.log(location);
   return (
     <div className="flex h-dvh bg-gray-700 text-gray-100">
-      <ServerNav />
+      <ServerNav className="hidden md:block" />
 
       {/* Routes  */}
       <Routes>

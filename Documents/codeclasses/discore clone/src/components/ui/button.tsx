@@ -35,10 +35,7 @@ const buttonVariants = cva(
 );
 
 /**
- * Note: Button Component
- * Goal: This component provides a flexible and stylable button element.
- * It uses `class-variance-authority` (cva) to manage different visual variants and sizes.
- * The `asChild` prop allows the button to render as a child component (e.g., a link) while retaining the button's styling.
+ * Flexible and reusable button component with multiple variants and sizes
  */
 function Button({
   className,

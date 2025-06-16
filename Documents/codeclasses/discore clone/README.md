@@ -1,51 +1,56 @@
-# 🎮 Discord Clone
+# 🎮 Discord Clone - Complete Implementation
 
-A modern Discord clone built with React, TypeScript, and Tailwind CSS featuring clean URLs, responsive design, intuitive navigation, and a realistic messaging system with local avatars.
+A fully-featured Discord clone built with React, TypeScript, and Tailwind CSS. Features responsive design, mobile-first navigation, realistic messaging system, and seamless server/channel management.
 
-![Discord Clone](https://img.shields.io/badge/Status-Active-brightgreen)
-![React](https://img.shields.io/badge/React-18+-blue)
+![Discord Clone](https://img.shields.io/badge/Status-Complete-brightgreen)
+![React](https://img.shields.io/badge/React-19+-blue)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.8+-blue)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-4.1+-06B6D4)
+![Vite](https://img.shields.io/badge/Vite-6.3+-646CFF)
 
 ## ✨ Features
 
-### 🏠 **Home & Server Navigation**
+### 📱 **Mobile-First Design**
 
-- **Clean URLs**: `/server/channel` instead of `/server/123/channel`
-- **Smart Context**: Automatic switching between home and server modes
-- **Unique Slugs**: Handles duplicate server names elegantly (`server-2`)
-- **Active State Management**: Visual feedback for current location
+- **Responsive Drawer Navigation**: Full-screen mobile drawer with server and channel navigation
+- **Touch-Optimized**: Drag-to-close, snap points, and smooth animations
+- **Persistent State**: Drawer state maintained across navigation using sessionStorage
+- **Hidden Scrollbars**: Clean horizontal server navigation without visible scrollbars
 
-### 💬 **Realistic Messaging System**
+### 🏠 **Advanced Navigation System**
 
-- **Discord-Style Messages**: Smart message grouping (consecutive same-user messages)
-- **Local Avatar System**: 12 unique avatars stored locally (`/public/avatars/Avatar/`)
-- **MessageWithAvatar**: Full messages with user info and timestamps
-- **MessageSimple**: Grouped messages without repetitive user info
-- **Dynamic Content**: Faker.js integration for realistic message generation
+- **Clean URLs**: `/server/channel` structure with semantic routing
+- **Smart Context Switching**: Automatic home ↔ server mode detection
+- **Unique Slug Handling**: Resolves duplicate server names (`tailwind-css-2`)
+- **Active State Management**: Visual feedback with animated indicators
 
-### 🎯 **Channel Management**
+### 💬 **Discord-Style Messaging**
 
-- **Dynamic Descriptions**: Contextual channel descriptions from JSON data
-- **Unread Indicators**: Visual markers for unread channels
-- **Category Toggles**: Collapsible channel categories
-- **Welcome Messages**: Beautiful empty state when no messages exist
+- **Smart Message Grouping**: Consecutive same-user messages grouped automatically
+- **Local Avatar System**: 12 unique avatars stored locally, no external dependencies
+- **Dual Component System**: MessageWithAvatar vs MessageSimple for performance
+- **Dynamic Timestamps**: Realistic time generation for messages
+
+### 🎯 **Channel & Server Management**
+
+- **Dynamic Descriptions**: Context-aware channel descriptions from JSON data
+- **Unread Indicators**: Visual markers for unread channels with sidebar positioning
+- **Collapsible Categories**: Toggle channel categories with smooth animations
+- **Welcome States**: Beautiful empty states when no messages exist
 
 ### 🎨 **Modern UI/UX**
 
-- **Responsive Sidebar**: Adaptive to different screen sizes
-- **Server Icons**: Custom server avatars and branding
-- **Dark Theme**: Discord-inspired color scheme
-- **Smooth Animations**: Polished transitions and interactions
-- **Search Integration**: Built-in search functionality
+- **Dark Theme**: Discord-inspired color scheme with custom gray palette
+- **Smooth Animations**: Polished transitions using Tailwind CSS animations
+- **Server Icons**: Custom server avatars with hover states and active indicators
+- **Search Integration**: Built-in search functionality in desktop header
 
 ### 🔧 **Technical Excellence**
 
-- **TypeScript**: Full type safety with proper interfaces and assertions
-- **React Router**: Advanced routing with dynamic parameters
-- **Component Architecture**: Reusable MessageWithAvatar/MessageSimple components
-- **Performance**: Optimized rendering and state management
-- **Error-Free**: Zero TypeScript compilation errors
+- **Full TypeScript**: Complete type safety with proper interfaces
+- **Zero Errors**: Clean compilation with no TypeScript or linting errors
+- **Performance Optimized**: Efficient rendering and state management
+- **Component Architecture**: Reusable, maintainable component structure
 
 ## 🚀 Quick Start
 
@@ -58,8 +63,8 @@ A modern Discord clone built with React, TypeScript, and Tailwind CSS featuring 
 
 ```bash
 # Clone the repository
-git clone https://github.com/elpertz/discore-clone.git
-cd discore-clone
+git clone https://github.com/your-username/discord-clone.git
+cd discord-clone
 
 # Install dependencies
 pnpm install
@@ -78,159 +83,280 @@ pnpm build
 pnpm preview
 ```
 
-## 📁 Project Structure
+## 🏗️ Project Architecture
+
+### 📁 Directory Structure
 
 ```
-src/
-├── components/          # Reusable UI components
-│   ├── ui/             # Base UI components (Button, Input, etc.)
-│   │   ├── messagesend.tsx # MessageWithAvatar & MessageSimple components
-│   │   └── ...         # Other UI components
-│   ├── icons-d/        # Custom Discord-style icons
-│   ├── ChannelView.tsx # Main channel content area with message rendering
-│   ├── ServerNav.tsx   # Server navigation sidebar with home detection
-│   └── Sidebar.tsx     # Channel sidebar with smart context switching
-├── pages/              # Page components
-│   ├── Home.tsx        # Home/DM context with discord-home server
-│   └── ServerDynamic.tsx # Server context handler with slug mapping
-├── assets/             # Static assets and data
-│   ├── data.js         # Server and channel configurations with Faker.js
-│   └── data.d.ts       # TypeScript type definitions
-├── lib/                # Utility functions
-└── entry/              # Application entry point
-public/
-├── avatars/Avatar/     # Local avatar images (Image-60.png to Image-60-12.png)
-└── images/             # Server logos and assets
+discord-clone/
+├── public/
+│   ├── avatars/Avatar/          # Local avatar images (Image-60.png to Image-60-12.png)
+│   └── images/d-logos/          # Server logos and branding assets
+├── src/
+│   ├── components/
+│   │   ├── ui/                  # Base UI components
+│   │   │   ├── messagesend.tsx  # MessageWithAvatar & MessageSimple
+│   │   │   ├── drawer.tsx       # Mobile drawer component (Vaul)
+│   │   │   ├── button.tsx       # Reusable button component
+│   │   │   └── server-link.tsx  # Server navigation links
+│   │   ├── icons-d/             # Custom Discord-style icons
+│   │   │   └── icons.tsx        # Icon components library
+│   │   ├── ChannelView.tsx      # Main channel content with mobile drawer
+│   │   ├── ServerNav.tsx        # Desktop server navigation sidebar
+│   │   └── Sidebar.tsx          # Channel sidebar with context switching
+│   ├── pages/
+│   │   ├── Home.tsx             # Home/DM context handler
+│   │   └── ServerDynamic.tsx    # Server context with slug mapping
+│   ├── assets/
+│   │   ├── data.js              # Server/channel configurations with Faker.js
+│   │   └── data.d.ts            # TypeScript type definitions
+│   ├── lib/                     # Utility functions and helpers
+│   └── entry/                   # Application entry point
+├── components.json              # Shadcn/ui configuration
+├── tsconfig.json                # TypeScript configuration
+└── vite.config.ts               # Vite build configuration
 ```
 
-## 🆕 Recent Updates
+### 🔄 Component Flow
 
-### **v2.1.1 - Routing Fix**
+```
+App.tsx
+├── ServerNav (desktop only)
+└── Routes
+    ├── Home.tsx
+    │   ├── Sidebar (context: "home")
+    │   └── ChannelView
+    │       └── ChannelHeader (mobile drawer)
+    └── ServerDynamic.tsx
+        ├── Sidebar (context: "server")
+        └── ChannelView
+            └── ChannelHeader (mobile drawer)
+```
+
+### 📱 Mobile Drawer Architecture
+
+```
+ChannelHeader
+└── Drawer (Vaul)
+    ├── DrawerHeader (title + close button)
+    ├── Server Navigation (horizontal scroll)
+    ├── Divider
+    └── DrawerSidebarContent
+        ├── Server Header
+        └── Channel List (scrollable)
+            └── DrawerChannelLink (auto-close on click)
+```
+
+## 🆕 Version History
+
+### **v3.0.0 - Mobile-First Complete** ✨
+
+- ✅ **Mobile Drawer Navigation**: Full-screen drawer with server/channel navigation
+- ✅ **Persistent Drawer State**: SessionStorage maintains state across navigation
+- ✅ **Touch Optimizations**: Drag-to-close, snap points, smooth animations
+- ✅ **Server Indicator Enhancement**: Bottom-positioned with horizontal expansion
+- ✅ **Scrollbar Hiding**: Clean horizontal navigation without visible scrollbars
+- ✅ **Navigation Bug Fixes**: Resolved duplicate server selection issues
+- ✅ **Responsive Improvements**: Hidden desktop sidebar on mobile, drawer-only navigation
+
+### **v2.1.1 - Routing & Navigation**
 
 - ✅ **URL Conflict Resolution**: Fixed home vs server routing ambiguity
-- ✅ **Clean Home URLs**: Home channels now use `/home/:channelName` pattern
-- ✅ **Route Order**: Prioritized specific routes to prevent conflicts
-- ✅ **Navigation Consistency**: Seamless switching between home and server contexts
+- ✅ **Clean Home URLs**: `/home/:channelName` pattern implementation
+- ✅ **Route Prioritization**: Specific routes prevent conflicts
+- ✅ **Navigation Consistency**: Seamless context switching
 
-### **v2.1.0 - Messaging System Overhaul**
+### **v2.1.0 - Messaging System**
 
-- ✅ **Discord-Style Message Grouping**: Smart consecutive message detection
-- ✅ **Local Avatar System**: 12 unique avatars, no external dependencies
-- ✅ **Component Split**: MessageWithAvatar vs MessageSimple for performance
-- ✅ **TypeScript Fixes**: Zero compilation errors, proper type assertions
-- ✅ **Faker.js Update**: Updated deprecated `userName()` to `username()`
-- ✅ **Layout Consistency**: Fixed Home vs ServerDynamic layout differences
+- ✅ **Discord-Style Grouping**: Smart consecutive message detection
+- ✅ **Local Avatar System**: 12 unique avatars, zero external dependencies
+- ✅ **Component Architecture**: MessageWithAvatar vs MessageSimple split
+- ✅ **TypeScript Compliance**: Zero compilation errors
+- ✅ **Faker.js Updates**: Modern API usage
 
-### **v2.0.0 - Clean URL Architecture**
+### **v2.0.0 - Clean URL Foundation**
 
-- ✅ **URL Restructure**: Removed ID-based URLs, implemented slug system
-- ✅ **Server Navigation**: Unique slug handling with duplicate resolution
-- ✅ **Context Switching**: Seamless Home ↔ Server transitions
-- ✅ **Channel Descriptions**: Dynamic descriptions from data source
+- ✅ **Slug-Based URLs**: Semantic routing without IDs
+- ✅ **Server Management**: Unique slug handling with duplicates
+- ✅ **Context System**: Home ↔ Server transitions
+- ✅ **Dynamic Content**: Channel descriptions from data
 
 ## 🛠️ Tech Stack
 
-- **Frontend**: React 19, TypeScript 5.8
-- **Styling**: Tailwind CSS 4.1, Radix UI
-- **Routing**: React Router 7.6
-- **Build Tool**: Vite 6.3
-- **Code Quality**: ESLint, Prettier
+### **Core Technologies**
 
-## 🎯 URL Structure
+- **React 19**: Latest React with concurrent features
+- **TypeScript 5.8**: Full type safety and modern syntax
+- **Vite 6.3**: Lightning-fast build tool and dev server
+- **React Router 7.6**: Advanced routing with dynamic parameters
 
-### Home Routes
+### **Styling & UI**
 
-- `/` - Home dashboard (Discord Home)
-- `/home/:channelName` - Home channel (e.g., `/home/welcome`, `/home/announcements`)
+- **Tailwind CSS 4.1**: Utility-first CSS framework
+- **Radix UI**: Accessible component primitives
+- **Vaul**: Mobile drawer component for touch interactions
+- **Lucide React**: Modern icon library
+
+### **Development Tools**
+
+- **ESLint**: Code quality and consistency
+- **TypeScript**: Static type checking
+- **Vite**: Fast development and optimized builds
+
+## 🎯 URL Structure & Routing
+
+### Home Routes (Discord Home)
+
+```
+/                           # Home dashboard
+/home/welcome              # Welcome channel
+/home/announcements        # Announcements channel
+/home/general             # General home channel
+```
 
 ### Server Routes
 
-- `/:serverSlug` - Server overview (e.g., `/tailwind-css`)
-- `/:serverSlug/:channelName` - Server channel (e.g., `/art-design/character-design`)
-
-### Unique Server Handling
-
-- Primary: `/tailwind-css/general`
-- Duplicate: `/tailwind-css-2/general`
-
-### URL Examples
-
 ```
-Home Context:
-├── /                          # Home dashboard
-├── /home/welcome             # Welcome channel
-├── /home/announcements       # Announcements channel
-└── /home/general            # General channel
-
-Server Context:
-├── /tailwind-css             # Tailwind CSS server
-├── /tailwind-css/general     # General channel in Tailwind server
-├── /art-design/character-design  # Character design channel
-└── /champion-league/results  # Results channel in Champion League
+/tailwind-css             # Tailwind CSS server overview
+/tailwind-css/general     # General channel in Tailwind server
+/art-design/character-design  # Character design channel
+/champion-league/results  # Results channel
 ```
 
-## 🎨 Customization
+### Duplicate Server Handling
+
+```
+/tailwind-css             # Primary Tailwind server
+/tailwind-css-2           # Secondary Tailwind server (same data)
+/champion-league          # Primary Champion League
+/champion-league-2        # Secondary Champion League (same data)
+```
+
+## 🎨 Customization Guide
 
 ### Adding New Servers
 
-Edit `src/assets/data.json`:
+Edit `src/assets/data.js`:
 
-```json
-{
+```javascript
+export default {
   "my-server": {
-    "label": "My Awesome Server",
-    "categories": [
+    label: "My Awesome Server",
+    categories: [
       {
-        "id": 1,
-        "label": "General",
-        "channels": [
+        id: 1,
+        label: "General",
+        channels: [
           {
-            "id": 1,
-            "label": "welcome",
-            "description": "Welcome to our server!",
-            "icon": "Book"
-          }
-        ]
-      }
-    ]
-  }
-}
+            id: 1,
+            label: "welcome",
+            description: "Welcome to our server!",
+            icon: "Book",
+            unread: false,
+            messages: [],
+          },
+        ],
+      },
+    ],
+  },
+};
 ```
 
-### Adding Server Navigation
+### Adding Server to Navigation
 
 Update `src/components/ServerNav.tsx`:
 
-```typescript
+```javascript
 const servers = [
   {
     uniqueSlug: "my-server",
     dataKey: "my-server",
-    img: "/images/my-server-logo.png",
-    name: "MS",
-    color: "bg-purple-500",
+    img: "/images/d-logos/my-logo.png",
+    name: "My Server",
+    color: "bg-purple-600",
   },
 ];
 ```
 
+### Custom Icons
+
+Add to `src/components/icons-d/icons.tsx`:
+
+```javascript
+export function MyIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" {...props}>
+      {/* Your SVG path */}
+    </svg>
+  );
+}
+```
+
+## 📱 Mobile Features
+
+### Drawer Navigation
+
+- **Full-Screen Experience**: 95vh height with snap points
+- **Server Selection**: Horizontal scrollable server list
+- **Channel Navigation**: Scrollable channel list with categories
+- **Auto-Close**: Channels close drawer, servers keep it open
+- **Persistent State**: Maintains open/closed state across navigation
+
+### Touch Interactions
+
+- **Drag to Close**: Natural mobile gesture support
+- **Smooth Animations**: 200ms transitions for all interactions
+- **Visual Feedback**: Active states and hover effects
+- **Optimized Scrolling**: Hidden scrollbars with smooth scrolling
+
+## 🔧 Development
+
+### Available Scripts
+
+```bash
+pnpm dev          # Start development server
+pnpm build        # Build for production
+pnpm preview      # Preview production build
+pnpm lint         # Run ESLint
+pnpm type-check   # Run TypeScript checks
+```
+
+### Code Quality
+
+- **TypeScript Strict Mode**: Full type safety enabled
+- **ESLint Configuration**: Consistent code style
+- **Zero Warnings**: Clean compilation output
+- **Component Documentation**: Inline comments for all major functions
+
+## 🚀 Deployment
+
+### Build Optimization
+
+- **Tree Shaking**: Unused code elimination
+- **Code Splitting**: Automatic route-based splitting
+- **Asset Optimization**: Image and CSS optimization
+- **Modern Bundles**: ES2020+ target for modern browsers
+
+### Recommended Hosting
+
+- **Vercel**: Zero-config deployment with React Router support
+- **Netlify**: SPA redirect rules for client-side routing
+- **GitHub Pages**: Static hosting with proper routing setup
+
+## 📄 License
+
+MIT License - feel free to use this project for learning or as a foundation for your own Discord clone.
+
 ## 🤝 Contributing
 
+This project is complete but open to improvements:
+
 1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-## 📝 License
-
-This project is open source and available under the [MIT License](LICENSE).
-
-## 🔗 Links
-
-- **Live Demo**: [Coming Soon]
-- **GitHub**: [https://github.com/elpertz/discore-clone](https://github.com/elpertz/discore-clone)
-- **Issues**: [Report a Bug](https://github.com/elpertz/discore-clone/issues)
+2. Create a feature branch
+3. Make your changes with proper TypeScript types
+4. Test on both desktop and mobile
+5. Submit a pull request
 
 ---
 
-Built with ❤️ by [elpertz](https://github.com/elpertz)
+**Built with ❤️ using React, TypeScript, and Tailwind CSS**

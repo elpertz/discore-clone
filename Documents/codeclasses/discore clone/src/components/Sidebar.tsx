@@ -20,8 +20,8 @@ const serverSlugMapping: Record<string, keyof DataStructure> = {
 };
 
 /**
- * Notes: Obtiene el dataKey del servidor basado en el uniqueSlug
- * Goal: Mapear uniqueSlug a nombres semánticos para acceder a los datos correctos
+ * Gets the dataKey of the server based on the uniqueSlug
+ * Maps uniqueSlug to semantic names to access the correct data
  */
 function getServerDataKey(uniqueSlug?: string): keyof DataStructure {
   return uniqueSlug ? serverSlugMapping[uniqueSlug] || "tailwind-css" : "tailwind-css";
@@ -30,9 +30,10 @@ function getServerDataKey(uniqueSlug?: string): keyof DataStructure {
 interface SidebarProps {
   context: "home" | "server"; // ← Esto define el comportamiento
   serverSlug?: string; // ← uniqueSlug del servidor (ej: "tailwind-css", "art-design")
+  className?: string;
 }
 
-export function Sidebar({ context, serverSlug }: SidebarProps) {
+export function Sidebar({ context, serverSlug, className }: SidebarProps) {
   // useState debe estar DENTRO del componente
   const [closedCategories, setClosedCategories] = useState<string[]>([]);
   const location = useLocation();
@@ -42,8 +43,7 @@ export function Sidebar({ context, serverSlug }: SidebarProps) {
   const serverData = typedData[serverKey];
 
   /**
-   * Notes: Función para alternar el estado de una categoría (abierta/cerrada)
-   * Goal: Agregar o quitar el ID de la categoría del array de categorías cerradas
+   * Toggles the open/closed state of a category by adding or removing its ID from the closedCategories array
    */
   const toggleCategory = (categoryId: string | number) => {
     const idToString = categoryId.toString();
@@ -54,18 +54,15 @@ export function Sidebar({ context, serverSlug }: SidebarProps) {
           : [...prev, idToString] // Si está abierta, la cerramos
     );
   };
-
   /**
-   * Notes: Verifica si una categoría está cerrada
-   * Goal: Determinar si los canales de una categoría deben mostrarse u ocultarse
+   * Checks if a category is closed by verifying if its ID exists in the closedCategories array
    */
   const isCategoryClosed = (categoryId: string | number) => {
     return closedCategories.includes(categoryId.toString());
   };
 
   /**
-   * Notes: Obtiene el estado de un canal (active, inactiveUnread, inactiveRead)
-   * Goal: Centralizar la lógica de determinación del estado del canal
+   * Determines the visual state of a channel (active, unread, or read) based on the current route and channel properties
    */
   const getChannelState = (channel: any) => {
     const channelPath = channel.label.toLowerCase().replace(/\s+/g, "-");
@@ -75,7 +72,7 @@ export function Sidebar({ context, serverSlug }: SidebarProps) {
   };
 
   return (
-    <div className="flex w-60 flex-col bg-gray-800">
+    <div className={`flex flex-col ${className || "w-60 bg-gray-800"}`}>
       {/* Header dinámico según el contexto */}
       <div className="hover:bg-gray-550/16 flex min-h-12 cursor-pointer items-center gap-2 border-b border-gray-400/5 px-4 font-semibold shadow transition-colors">
         {context === "home" ? (
@@ -93,7 +90,7 @@ export function Sidebar({ context, serverSlug }: SidebarProps) {
       </div>
 
       {/* Lista de canales usando los datos del servidor correcto */}
-      <div className="flex flex-col gap-1 overflow-y-scroll">
+      <div className="flex flex-1 flex-col gap-1 overflow-y-auto px-2">
         {serverData.categories.map((categorie: any) => (
           <div className="flex flex-col gap-1 pt-3" key={categorie.id}>
             {categorie.label && (
@@ -112,7 +109,7 @@ export function Sidebar({ context, serverSlug }: SidebarProps) {
               </Button>
             )}
 
-            {/* Mostrar canales: todos si está abierta, solo unread si está cerrada */}
+            {/* Show channels: all if open, only unread if closed */}
             <div className="space-y-0.5 px-1">
               {categorie.channels
                 .filter((channel: any) => {
@@ -145,8 +142,8 @@ interface ChannelLinkProps {
 }
 
 /**
- * Notes: Link inteligente que construye URL según el contexto
- * Goal: Reutilizar el mismo componente para home y server
+ * Smart link that builds URL based on context
+ * Reuses the same component for home and server
  */
 function ChannelLink({ channel, context, serverSlug }: ChannelLinkProps) {
   const location = useLocation();
@@ -160,7 +157,7 @@ function ChannelLink({ channel, context, serverSlug }: ChannelLinkProps) {
     ? Icons[iconMap[channel.icon] as keyof typeof Icons] || Icons.Hashtag
     : Icons.Hashtag;
 
-  // 🎯 LÓGICA INTELIGENTE: Construir URL según contexto
+  // Build URL based on context (home vs server)
   const channelPath = channel.label.toLowerCase().replace(/\s+/g, "-");
   const to = context === "home" ? `/home/${channelPath}` : `/${serverSlug}/${channelPath}`;
   const isActive = location.pathname === to;
